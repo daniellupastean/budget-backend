@@ -7,6 +7,8 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { BankAccount } from '../bank-accounts/bank-account.entity';
+import { Expense } from '../expenses/expense.entity';
+import { Budget } from '../budgets/budget.entity';
 
 @Entity('users')
 export class User {
@@ -25,10 +27,14 @@ export class User {
   @Column()
   password: string;
 
-  @OneToMany(() => BankAccount, (bankAccount) => bankAccount.user, {
-    eager: true,
-  })
+  @OneToMany(() => BankAccount, (bankAccount) => bankAccount.user)
   bankAccounts: BankAccount[];
+
+  @OneToMany(() => Expense, (expense) => expense.user)
+  expenses: Expense[];
+
+  @OneToMany(() => Budget, (budget) => budget.user)
+  budgets: Budget[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
