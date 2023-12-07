@@ -26,7 +26,7 @@ export class UsersController {
   }
 
   @Get('view')
-  @Render('index')
+  @Render('view-users')
   async getUsersView() {
     const users = await this.usersService.getAllUsers();
     const usersForUI = users.map((user) => {
