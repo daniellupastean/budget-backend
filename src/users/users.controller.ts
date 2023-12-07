@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Render,
+  Param,
+  Redirect,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 
@@ -11,8 +19,43 @@ export class UsersController {
     return await this.usersService.getAllUsers();
   }
 
-  @Post()
+  @Post('create-user')
+  @Redirect('/users/view', 302)
   async createUser(@Body() user: User) {
     return await this.usersService.createUser(user);
+  }
+
+  @Get('view')
+  @Render('index')
+  async getUsersView() {
+    const users = await this.usersService.getAllUsers();
+    const usersForUI = users.map((user) => {
+      return {
+        id: user.id,
+        name: user.firstName + ' ' + user.lastName,
+        email: user.email,
+      };
+    });
+    return { users: usersForUI };
+  }
+
+  @Get('create')
+  @Render('create-user')
+  createUserView() {
+    return { message: 'Create user' };
+  }
+
+  @Get('edit-user/:id')
+  @Render('edit-user')
+  async editUser(@Param('id') id: string) {
+    const user = await this.usersService.getById(id);
+    return { user };
+  }
+
+  @Post('update-user/:id')
+  @Redirect('/users/view', 302)
+  async updateUser(@Param('id') id: string, @Body() userData: any) {
+    await this.usersService.updateUser(id, userData);
+    return { redirect: '/users/view' };
   }
 }
