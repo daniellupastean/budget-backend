@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Create New User</title>
+    <link
+      rel='stylesheet'
+      type='text/css'
+      href='/css/accounts/create-styles.css'
+    />
+  </head>
+  <body>
+    <div class='container'>
+      <h1>Add new account</h1>
+      <form action='/accounts/create-account' method='post'>
+        <label for='firstName'>First Name:</label>
+        <input type='text' id='firstName' name='firstName' required />
+
+        <label for='lastName'>Last Name:</label>
+        <input type='text' id='lastName' name='lastName' required />
+
+        <label for='email'>Email:</label>
+        <input type='email' id='email' name='email' required />
+
+        <label for='password'>Email:</label>
+        <input type='password' id='password' name='password' required />
+
+        <button type='submit'>Create User</button>
+      </form>
+    </div>
+  </body>
+</html>

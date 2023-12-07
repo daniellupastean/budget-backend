@@ -12,6 +12,7 @@ import { User } from '../users/user.entity';
 import { Income } from '../incomes/income.entity';
 import { Debt } from '../debts/debt.entity';
 import { Transaction } from '../transactions/transaction.entity';
+import { Bank } from '../banks/bank.entity';
 
 @Entity('bank_accounts')
 export class BankAccount {
@@ -20,9 +21,6 @@ export class BankAccount {
 
   @Column({ name: 'account_name' })
   accountName: string;
-
-  @Column({ name: 'bank_name' })
-  bankName: string;
 
   @Column({ name: 'account_type' })
   accountType: string;
@@ -36,6 +34,10 @@ export class BankAccount {
   @ManyToOne(() => User, (user) => user.bankAccounts)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @ManyToOne(() => Bank, (bank) => bank.bankAccounts)
+  @JoinColumn({ name: 'bank_id' })
+  bank: Bank;
 
   @OneToMany(() => Income, (income) => income.bankAccount)
   incomes: Income[];
