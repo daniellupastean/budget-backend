@@ -19,10 +19,17 @@ export class UsersController {
     return await this.usersService.getAllUsers();
   }
 
-  @Post('create-user')
+  @Post('add')
   @Redirect('/users/view', 302)
   async createUser(@Body() user: User) {
     return await this.usersService.createUser(user);
+  }
+
+  @Post('edit/:id')
+  @Redirect('/users/view', 302)
+  async updateUser(@Param('id') id: string, @Body() userData: any) {
+    await this.usersService.updateUser(id, userData);
+    return { redirect: '/users/view' };
   }
 
   @Get('view')
@@ -39,23 +46,16 @@ export class UsersController {
     return { users: usersForUI };
   }
 
-  @Get('create')
-  @Render('users/create.view.hbs')
-  createUserView() {
-    return { message: 'Create user' };
+  @Get('add')
+  @Render('users/add.view.hbs')
+  addUserView() {
+    return { message: 'Add user' };
   }
 
-  @Get('edit-user/:id')
+  @Get('edit/:id')
   @Render('users/edit.view.hbs')
   async editUser(@Param('id') id: string) {
     const user = await this.usersService.getById(id);
     return { user };
-  }
-
-  @Post('update-user/:id')
-  @Redirect('/users/view', 302)
-  async updateUser(@Param('id') id: string, @Body() userData: any) {
-    await this.usersService.updateUser(id, userData);
-    return { redirect: '/users/view' };
   }
 }

@@ -2,7 +2,7 @@
   <head>
     <meta charset='UTF-8' />
     <title>Users</title>
-    <link rel='stylesheet' type='text/css' href='/css/users/view-styles.css' />
+    <link rel='stylesheet' type='text/css' href='/css/users/index.styles.css' />
   </head>
   <body>
     <div class='container'>
@@ -11,7 +11,6 @@
         <table>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Name</th>
               <th>Email</th>
               <th class='last-column'>Actions</th>
@@ -20,14 +19,10 @@
           <tbody>
             {{#each users}}
               <tr>
-                <td>{{this.id}}</td>
                 <td>{{this.name}}</td>
                 <td>{{this.email}}</td>
                 <td class='last-column'>
-                  <a
-                    href='/users/edit-user/{{this.id}}'
-                    class='edit-button'
-                  >Edit</a>
+                  <a href='/users/edit/{{this.id}}' class='edit-button'>Edit</a>
                 </td>
               </tr>
             {{/each}}
@@ -35,7 +30,7 @@
         </table>
       </div>
       <div class='footer'>
-        <a href='/users/create' class='edit-button'>Add User</a>
+        <a href='/users/add' class='edit-button'>Add User</a>
       </div>
     </div>
   </body>

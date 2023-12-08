@@ -1,16 +1,12 @@
 <html>
   <head>
-    <title>Create New User</title>
-    <link
-      rel='stylesheet'
-      type='text/css'
-      href='/css/users/create-styles.css'
-    />
+    <title>Add New User</title>
+    <link rel='stylesheet' type='text/css' href='/css/users/add.styles.css' />
   </head>
   <body>
     <div class='container'>
-      <h1>Create New User</h1>
-      <form action='/users/create-user' method='post'>
+      <h1>Add New User</h1>
+      <form action='/users/add' method='post'>
         <label for='firstName'>First Name:</label>
         <input type='text' id='firstName' name='firstName' required />
 
@@ -23,7 +19,7 @@
         <label for='password'>Password:</label>
         <input type='password' id='password' name='password' required />
 
-        <button type='submit'>Create User</button>
+        <button type='submit'>Add User</button>
       </form>
     </div>
   </body>
