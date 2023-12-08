@@ -26,7 +26,7 @@ export class UsersController {
   }
 
   @Get('view')
-  @Render('users/view-users')
+  @Render('users/index.view.hbs')
   async getUsersView() {
     const users = await this.usersService.getAllUsers();
     const usersForUI = users.map((user) => {
@@ -40,13 +40,13 @@ export class UsersController {
   }
 
   @Get('create')
-  @Render('users/create-user')
+  @Render('users/create.view.hbs')
   createUserView() {
     return { message: 'Create user' };
   }
 
   @Get('edit-user/:id')
-  @Render('users/edit-user')
+  @Render('users/edit.view.hbs')
   async editUser(@Param('id') id: string) {
     const user = await this.usersService.getById(id);
     return { user };
