@@ -1,0 +1,42 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Users</title>
+    <link rel='stylesheet' type='text/css' href='/css/users/view-styles.css' />
+  </head>
+  <body>
+    <div class='container'>
+      <h1>Users</h1>
+      <div class='table-container'>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th class='last-column'>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each users}}
+              <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.name}}</td>
+                <td>{{this.email}}</td>
+                <td class='last-column'>
+                  <a
+                    href='/users/edit-user/{{this.id}}'
+                    class='edit-button'
+                  >Edit</a>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class='footer'>
+        <a href='/users/create' class='edit-button'>Add User</a>
+      </div>
+    </div>
+  </body>
+</html>
