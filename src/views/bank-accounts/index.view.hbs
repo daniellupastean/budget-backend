@@ -1,0 +1,40 @@
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <title>Bank Accounts</title>
+    <link
+      rel='stylesheet'
+      type='text/css'
+      href='/css/bank-accounts/index.styles.css'
+    />
+  </head>
+  <body>
+    <div class='container'>
+      <h1>Bank Accounts - {{user.name}}</h1>
+      <div class='table-container'>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Bank</th>
+              <th class='last-column'>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each bankAccounts}}
+              <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.bank}}</td>
+                <td class='last-column'>{{this.balance}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      <div class='footer'>
+        <a href='/bank-accounts/user/{{user.id}}/add' class='edit-button'>Add
+          Bank Account</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -19,13 +19,10 @@ export class BankAccount {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ name: 'account_name' })
-  accountName: string;
+  @Column({ name: 'name' })
+  name: string;
 
-  @Column({ name: 'account_type' })
-  accountType: string;
-
-  @Column({ name: 'balance' })
+  @Column({ name: 'balance', default: 0 })
   balance: number;
 
   @Column({ name: 'currency' })
