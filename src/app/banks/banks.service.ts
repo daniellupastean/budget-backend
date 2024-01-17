@@ -11,6 +11,11 @@ export class BanksService {
   ) {}
 
   async getAllBanks() {
-    return await this.banksRepository.find();
+    return await this.banksRepository.find({
+      select: { id: true, name: true },
+      where: { isDeleted: false },
+    });
   }
+
+  softDeleteBank;
 }

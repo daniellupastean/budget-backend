@@ -9,6 +9,9 @@ export class Bank {
   @Column({ name: 'name' })
   name: string;
 
+  @Column({ name: 'is_deleted', default: false })
+  isDeleted: boolean;
+
   @OneToMany(() => BankAccount, (bankAccount) => bankAccount.user)
   bankAccounts: BankAccount[];
 }
