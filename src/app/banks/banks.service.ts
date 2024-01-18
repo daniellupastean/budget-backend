@@ -17,5 +17,7 @@ export class BanksService {
     });
   }
 
-  softDeleteBank;
+  async softDeleteBank(id: string) {
+    return await this.banksRepository.update(id, { isDeleted: true });
+  }
 }
