@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -88,5 +89,13 @@ export class BankAccountsController {
     @Body() bankAccountDto: UpdateBankAccountDto,
   ) {
     return await this.bankAccountsService.updateBankAccount(id, bankAccountDto);
+  }
+
+  @Delete(':id')
+  async deleteBankAccount(
+    @Param('id', ParseUUIDPipe) accountId: string,
+    @Body('userId', ParseUUIDPipe) userId: string,
+  ) {
+    return await this.bankAccountsService.deleteBankAccount(accountId, userId);
   }
 }

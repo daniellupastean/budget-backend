@@ -41,6 +41,9 @@ export class UpdateBankAccountDto {
   @IsNumber()
   @Type(() => Number)
   balance?: number;
+
+  @IsUUID()
+  userId: string;
 }
 
 export class BankAccountDto {
