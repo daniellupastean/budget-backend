@@ -7,12 +7,14 @@ import { BankAccountsModule } from './bank-accounts/bank-accounts.module';
 import { LoggingModule } from 'src/utils/logger/logger.module';
 import { LoggerMiddleware } from 'src/utils/logger/logger.middleware';
 import { CacheManagerModule } from 'src/utils/cache-manager/cache-manager.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeOrmConfig),
     LoggingModule,
     CacheManagerModule,
+    AuthModule,
     UsersModule,
     BanksModule,
     BankAccountsModule,

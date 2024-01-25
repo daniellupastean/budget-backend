@@ -32,7 +32,7 @@ const winstonConfig = {
           return info;
         })(),
         timestampColorizer(),
-        format.colorize({}),
+        format.colorize(),
         format.printf(({ timestamp, level, message }) => {
           return `${timestamp} -> ${level}: ${message}`;
         }),
