@@ -7,9 +7,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
+import { WinstonModule } from 'nest-winston';
+import winstonConfig from './config/winston.config';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
+    logger: WinstonModule.createLogger(winstonConfig),
+  });
 
   app.enableCors();
   app.useStaticAssets(join(__dirname, '..', 'public'));

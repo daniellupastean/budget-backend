@@ -11,6 +11,7 @@ import {
 import { Bank } from '../banks/bank.entity';
 import { plainToClass } from 'class-transformer';
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { Logger } from 'winston';
 
 @Injectable()
 export class BankAccountsService {
@@ -19,16 +20,15 @@ export class BankAccountsService {
     private bankAccountsRepository: Repository<BankAccount>,
     @Inject(CACHE_MANAGER)
     private cacheManager: Cache,
+    @Inject('WINSTON_LOGGER')
+    private logger: Logger,
   ) {}
 
   async getAllByUser(userId: string) {
     const cacheKey = `bankAccounts-${userId}`;
     let data: BankAccount[] = await this.cacheManager.get(cacheKey);
 
-    console.log('get all');
-
     if (!data) {
-      console.log('did not find cache');
       data = await this.bankAccountsRepository.find({
         where: { user: { id: userId } },
         relations: { bank: true },
@@ -42,10 +42,9 @@ export class BankAccountsService {
   async getAllMappedByUser(userId: string) {
     const cacheKey = `bankAccountsMapped-${userId}`;
     let data: BankAccountDto[] = await this.cacheManager.get(cacheKey);
-    console.log('get all mapped');
 
     if (!data) {
-      console.log('did not find cache');
+      this.logger.info('Cached data not found');
       const bankAccounts = await this.bankAccountsRepository.find({
         where: { user: { id: userId } },
         relations: { bank: true },
@@ -58,6 +57,8 @@ export class BankAccountsService {
       );
 
       await this.cacheManager.set(cacheKey, data, 1000000); // ~ 16min
+    } else {
+      this.logger.info('Retrieved cached data');
     }
 
     return data;
