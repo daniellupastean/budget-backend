@@ -10,7 +10,7 @@ import {
 } from './bank-accounts.dto';
 import { Bank } from '../banks/bank.entity';
 import { plainToClass } from 'class-transformer';
-import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { Cache } from '@nestjs/cache-manager';
 import { Logger } from 'winston';
 
 @Injectable()
@@ -18,7 +18,6 @@ export class BankAccountsService {
   constructor(
     @InjectRepository(BankAccount)
     private bankAccountsRepository: Repository<BankAccount>,
-    @Inject(CACHE_MANAGER)
     private cacheManager: Cache,
     @Inject('WINSTON_LOGGER')
     private logger: Logger,

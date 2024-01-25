@@ -1,6 +1,6 @@
 import { Module, Global } from '@nestjs/common';
 import winstonConfig from 'src/config/winston.config';
-import { Logger, createLogger } from 'winston';
+import { createLogger } from 'winston';
 
 const logger = createLogger(winstonConfig);
 
