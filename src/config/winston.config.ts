@@ -2,7 +2,7 @@ import { format, transports } from 'winston';
 
 const timestampColorizer = format((info, opts) => {
   if (info.timestamp) {
-    info.timestamp = `\x1b[33m${info.timestamp}\x1B[0m`; // ANSI escape code for magenta
+    info.timestamp = `\x1B[0;34m${info.timestamp}\x1B[0m`; // ANSI escape code for magenta
   }
   return info;
 });
