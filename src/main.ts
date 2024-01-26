@@ -21,8 +21,8 @@ async function bootstrap() {
   app.setViewEngine('hbs');
 
   const config = new DocumentBuilder()
-    .setTitle('Budget API')
-    .setDescription('Budget API description')
+    .setTitle('Budget Manager API')
+    .setDescription('Budget Manager API description')
     .setVersion('1.0')
     .addBearerAuth()
     .build();

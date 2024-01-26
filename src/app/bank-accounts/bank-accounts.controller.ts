@@ -9,6 +9,7 @@ import {
   Put,
   Redirect,
   Render,
+  UseGuards,
 } from '@nestjs/common';
 import { BankAccountsService } from './bank-accounts.service';
 import { UsersService } from '../users/users.service';
@@ -17,7 +18,12 @@ import {
   UpdateBankAccountDto,
 } from './bank-accounts.dto';
 import { BanksService } from '../banks/banks.service';
+import { JwtAuthGuard } from '../auth/guards/jwt.guard';
+import { AuthUser } from '../auth/decorators/auth-user.decorator';
+import { User } from '../users/user.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Bank Accounts')
 @Controller('bank-accounts')
 export class BankAccountsController {
   constructor(
@@ -68,21 +74,25 @@ export class BankAccountsController {
 
   // for API
 
+  @UseGuards(JwtAuthGuard)
   @Get('user/:userId')
   async getAllByUser(@Param('userId', ParseUUIDPipe) userId: string) {
     return await this.bankAccountsService.getAllMappedByUser(userId);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getBankAccountById(@Param('id', ParseUUIDPipe) id: string) {
     return await this.bankAccountsService.getMappedById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   async createBankAccount(@Body() bankAccountDto: CreateBankAccountDto) {
     return await this.bankAccountsService.createBankAccount(bankAccountDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateBankAccount(
     @Param('id', ParseUUIDPipe) id: string,
@@ -91,11 +101,12 @@ export class BankAccountsController {
     return await this.bankAccountsService.updateBankAccount(id, bankAccountDto);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async deleteBankAccount(
     @Param('id', ParseUUIDPipe) accountId: string,
-    @Body('userId', ParseUUIDPipe) userId: string,
+    @AuthUser() user: User,
   ) {
-    return await this.bankAccountsService.deleteBankAccount(accountId, userId);
+    return await this.bankAccountsService.deleteBankAccount(accountId, user.id);
   }
 }

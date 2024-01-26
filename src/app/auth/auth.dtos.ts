@@ -9,6 +9,14 @@ export class RegisterDto {
   @ApiProperty()
   @IsString()
   password: string;
+
+  @ApiProperty()
+  @IsString()
+  firstName: string;
+
+  @ApiProperty()
+  @IsString()
+  lastName: string;
 }
 
 export class LoginDto {

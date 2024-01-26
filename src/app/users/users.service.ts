@@ -25,6 +25,24 @@ export class UsersService {
     }
   }
 
+  async getByEmail(email: string) {
+    this.logger.info(`Fetching user by email: ${email}`);
+    try {
+      const user = await this.usersRepository.findOneBy({ email });
+      if (user) {
+        this.logger.info(`User found with email: ${email}`);
+      } else {
+        this.logger.warn(`No user found with email: ${email}`);
+      }
+      return user;
+    } catch (error) {
+      this.logger.error(
+        `Error fetching user by email ${email}: ${error.message}`,
+      );
+      throw error;
+    }
+  }
+
   async getById(id: string) {
     this.logger.info(`Fetching user by ID: ${id}`);
     try {

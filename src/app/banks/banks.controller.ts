@@ -1,6 +1,8 @@
 import { Controller, Delete, Get, Param, ParseUUIDPipe } from '@nestjs/common';
 import { BanksService } from './banks.service';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Banks')
 @Controller('banks')
 export class BanksController {
   constructor(private banksService: BanksService) {}

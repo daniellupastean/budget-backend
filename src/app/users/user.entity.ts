@@ -27,6 +27,9 @@ export class User {
   @Column()
   password: string;
 
+  @Column({ default: 'user' })
+  role: 'user' | 'admin';
+
   @OneToMany(() => BankAccount, (bankAccount) => bankAccount.user)
   bankAccounts: BankAccount[];
 
