@@ -5,6 +5,7 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -13,6 +14,7 @@ import { Income } from '../incomes/income.entity';
 import { Debt } from '../debts/debt.entity';
 import { Transaction } from '../transactions/transaction.entity';
 import { Bank } from '../banks/bank.entity';
+import { Limit } from '../limits/limit.entity';
 
 @Entity('bank_accounts')
 export class BankAccount {
@@ -44,6 +46,9 @@ export class BankAccount {
 
   @OneToMany(() => Transaction, (transaction) => transaction.bankAccount)
   transactions: Transaction[];
+
+  @OneToOne(() => Limit, (limit) => limit.bankAccount)
+  limit: Limit[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

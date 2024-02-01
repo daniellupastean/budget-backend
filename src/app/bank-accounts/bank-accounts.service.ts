@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BankAccount } from './bank-account.entity';
 import { Repository } from 'typeorm';
@@ -12,6 +12,7 @@ import { Bank } from '../banks/bank.entity';
 import { plainToClass } from 'class-transformer';
 import { Cache } from '@nestjs/cache-manager';
 import { Logger } from 'winston';
+import { LimitsService } from '../limits/limits.service';
 
 @Injectable()
 export class BankAccountsService {
@@ -19,6 +20,7 @@ export class BankAccountsService {
     @InjectRepository(BankAccount)
     private bankAccountsRepository: Repository<BankAccount>,
     private cacheManager: Cache,
+    private limitsService: LimitsService,
     @Inject('WINSTON_LOGGER')
     private logger: Logger,
   ) {}
@@ -165,10 +167,15 @@ export class BankAccountsService {
       // Remove userId from DTO to prevent updating the userId field in the bank account
       delete bankAccountDto.userId;
 
+      const limit = await this.limitsService.getLimitByBankAccountId(id);
+      if (limit && limit.value > bankAccountDto.balance) {
+        throw new ForbiddenException('You cannot go bellow your set limit');
+      }
       const updateResult = await this.bankAccountsRepository.update(
         id,
         bankAccountDto,
       );
+
       if (updateResult.affected > 0) {
         this.logger.info(`Bank account ${id} successfully updated`);
       } else {
