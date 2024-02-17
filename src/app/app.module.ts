@@ -9,6 +9,7 @@ import { LoggerMiddleware } from 'src/utils/logger/logger.middleware';
 import { CacheManagerModule } from 'src/utils/cache-manager/cache-manager.module';
 import { AuthModule } from './auth/auth.module';
 import { LimitsModule } from './limits/limits.module';
+import { TransactionsModule } from './transactions/transactions.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { LimitsModule } from './limits/limits.module';
     BanksModule,
     BankAccountsModule,
     LimitsModule,
+    TransactionsModule,
   ],
 })
 export class AppModule implements NestModule {

@@ -21,7 +21,7 @@ export class Transaction {
   @Column()
   amount: number;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @CreateDateColumn({ name: 'created_at' })
